@@ -18,40 +18,52 @@
 
                 {{-- card --}}
                 <div class="card">
-                    <img src="..." class="card-img-top" alt="...">
+                    <img src="{{ asset('storage/' . $element->image) }}" class="card-img-top" alt="{{ $element['title'] }}">
 
                     {{-- card-body --}}
                     <div class="card-body">
 
                         {{-- title --}}
-                        <a href="{{ route('projects.show', $element['id'] ) }}">
-                            <h5 class="card-title">
+                        <a href="{{ route('guest.show', $element['id'] ) }}" class="mb-2">
+                            <h5 class="card-title fw-bold">
                                 {{ $element['title'] }}
                             </h5>
                         </a>
 
+                        {{-- technologies --}}
+                        <h6 class="card-subtitle mb-2">
+                            <span class="text-body-secondary text-uppercase">Linguaggio usato: </span>
+                            @if($element->technology)
+                                @foreach($element->technology as $elem)
+                                    <span class="badge rounded-pill text-bg-success">
+                                        {{ $elem->name }}
+                                    </span>
+                                @endforeach
+                            @endif
+                        </h6>
+
                         {{-- cliente --}}
                         <h6 class="card-subtitle mb-2">
-                            <span class="text-body-secondary">Cliente: </span>
+                            <span class="text-body-secondary text-uppercase">Cliente: </span>
                             {{ $element['customer'] }}
                         </h6>
 
                         {{-- tipologia di cliente --}}
                         <h6 class="card-subtitle mb-2">
-                            <span class="text-body-secondary">Settore: </span>
+                            <span class="text-body-secondary text-uppercase">Settore: </span>
                             {{ $element['type_customer'] }}
                         </h6>
 
                         {{-- prezzo del progetto --}}
                         <h6 class="card-subtitle mb-2">
-                            <span class="text-body-secondary">Costo: </span>
+                            <span class="text-body-secondary text-uppercase">Costo: </span>
                             <span>€</span>
                             {{ $element['price'] }}
                         </h6>
 
                         {{-- data creazione --}}
                         <h6 class="card-subtitle mb-2">
-                            <span class="text-body-secondary">Data: </span>
+                            <span class="text-body-secondary text-uppercase">Data: </span>
                             {{ $element['created'] }}
                         </h6>
 

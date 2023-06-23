@@ -103,6 +103,22 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
+
+                {{-- technology --}}
+                {{-- <div class="mb-3">
+                    <label for="project_technology" class="form-label">Tipologia</label>
+                    <select class="form-select @error('technology_id') is-invalid @enderror" name="technology_id" id="project_technology">
+
+                        <option disabled selected>Scegli Tipologia</option>
+                        @foreach($types as $type)
+                            <option value="{{ $type->id }}">{{ $type->name }}</option>
+                        @endforeach
+                    </select> --}}
+                    {{-- error --}}
+                    {{-- @error('type_id')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror --}}
+                {{-- </div> --}}
                 
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>

@@ -14,7 +14,7 @@
         {{-- projectbook --}}
         <div class="d-flex flex-column pe-5">
 
-            <img src="{{ asset('storage/' . $project->image) }}" class="card-img-top" alt="...">
+            <img src="{{ asset('storage/'.$project->image) }}" class="card-img-top" alt="...">
 
             {{-- title --}}
             <h4 class="text-uppercase fw-bold">{{ $project['title'] }}</h4>
@@ -24,6 +24,19 @@
                 <span class="text-white-50">Slug Titolo: </span>
                 {{ $project['slug'] }}
             </h6>
+
+            {{-- technologies --}}
+            <h6 class="card-subtitle mb-2">
+                <span class="text-white-50">Linguaggio usato: </span>
+                @if($project->technology)
+                    @foreach($project->technology as $elem)
+                        <span class="badge rounded-pill text-bg-light">
+                            {{ $elem->name }}
+                        </span>
+                    @endforeach
+                @endif
+            </h6>
+
             {{-- cliente --}}
             <h6 class="card-subtitle mb-2">
                 <span class="text-white-50">Cliente: </span>
@@ -46,13 +59,17 @@
             {{-- tipologia di progetto --}}
             <h6 class="card-subtitle mb-2">
                 <span class="text-white-50">Tipologia Progetto: </span>
-                {{ $project->type->name }}
+                @if($project->type)
+                    {{ $project->type->name }}
+                @endif
             </h6>
 
             {{-- slug progetto --}}
             <h6 class="card-subtitle mb-2">
                 <span class="text-white-50">Slug Tipologia Progetto: </span>
-                {{ $project->type->slug}}
+                @if($project->type)
+                    {{ $project->type->slug}}
+                @endif
             </h6>
 
             {{-- data creazione --}}

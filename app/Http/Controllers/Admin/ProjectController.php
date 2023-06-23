@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\Admin\Project;
 // Importazione modello Project
 use App\Models\Admin\Type;
+use App\Models\Admin\Technology;
 
 // Importazione file Request
 use App\Http\Requests\StoreProjectRequest;
@@ -42,7 +43,8 @@ class ProjectController extends Controller
     {
 
         $types = Type::all();
-        return view('admin.projects.create', compact('types')); 
+        $technologies = Technology::all();
+        return view('admin.projects.create', compact('types', 'technologies')); 
     }
 
     /**

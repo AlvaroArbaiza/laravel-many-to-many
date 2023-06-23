@@ -11,6 +11,11 @@ class Type extends Model
 
     protected $table = 'types';
 
+    protected $fillable = [
+        'name',
+        'slug'
+    ];
+
     public function type() {
         return $this->hasMany(Project::class);
     }

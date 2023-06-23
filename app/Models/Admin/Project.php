@@ -35,7 +35,7 @@ class Project extends Model
     }
 
     // funzione di relazione Many to Many con la tabella 'technologies'
-    public function technologies() {
-        return $this->belongsToMany(Project::class);
+    public function technology() {
+        return $this->belongsToMany(Technology::class);
     }
 }

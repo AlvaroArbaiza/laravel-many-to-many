@@ -24,7 +24,7 @@
                     {{-- card --}}
                     <div class="card">
                         
-                        <img src="{{ asset('storage/' . $element->image) }}" class="card-img-top" alt="...">
+                        <img src="{{ asset('storage/' . $element->image) }}" class="card-img-top" alt="{{ $element['title'] }}">
 
                         {{-- card-body --}}
                         <div class="card-body">
@@ -40,6 +40,18 @@
                             <h6 class="card-subtitle mb-2">
                                 <span class="text-body-secondary">Slug Titolo: </span>
                                 {{ $element['slug'] }}
+                            </h6>
+
+                            {{-- technologies --}}
+                            <h6 class="card-subtitle mb-2">
+                                <span class="text-body-secondary">Linguaggio usato: </span>
+                                @if($element->technology)
+                                    @foreach($element->technology as $elem)
+                                        <span class="badge rounded-pill text-bg-success">
+                                            {{ $elem->name }}
+                                        </span>
+                                    @endforeach
+                                @endif
                             </h6>
 
                             {{-- cliente --}}
