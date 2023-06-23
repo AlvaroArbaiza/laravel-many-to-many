@@ -19,6 +19,18 @@
             {{-- title --}}
             <h4 class="text-uppercase fw-bold">{{ $project['title'] }}</h4>
 
+            {{-- technologies --}}
+            <h6 class="card-subtitle mb-2">
+                <span class="text-white-50">Linguaggio usato: </span>
+                @if($project->technology)
+                    @foreach($project->technology as $elem)
+                        <span class="badge rounded-pill text-bg-success">
+                            {{ $elem->name }}
+                        </span>
+                    @endforeach
+                @endif
+            </h6>
+
             {{-- cliente --}}
             <h6 class="card-subtitle mb-2">
                 <span class="text-white-50">Cliente: </span>

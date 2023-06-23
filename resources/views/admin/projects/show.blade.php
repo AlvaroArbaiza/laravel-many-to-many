@@ -30,7 +30,7 @@
                 <span class="text-white-50">Linguaggio usato: </span>
                 @if($project->technology)
                     @foreach($project->technology as $elem)
-                        <span class="badge rounded-pill text-bg-light">
+                        <span class="badge rounded-pill text-bg-success">
                             {{ $elem->name }}
                         </span>
                     @endforeach

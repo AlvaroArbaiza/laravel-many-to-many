@@ -105,20 +105,20 @@
                 </div>
 
                 {{-- technology --}}
-                {{-- <div class="mb-3">
-                    <label for="project_technology" class="form-label">Tipologia</label>
-                    <select class="form-select @error('technology_id') is-invalid @enderror" name="technology_id" id="project_technology">
+                <div class="mb-3">
 
-                        <option disabled selected>Scegli Tipologia</option>
-                        @foreach($types as $type)
-                            <option value="{{ $type->id }}">{{ $type->name }}</option>
-                        @endforeach
-                    </select> --}}
-                    {{-- error --}}
-                    {{-- @error('type_id')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror --}}
-                {{-- </div> --}}
+                    @foreach($technologies as $tech)
+                        <div class="form-check">
+
+                            {{-- aggiungiamo "[]" al name per passare tutti i valori inviati come un array, cosi evitiamo che i valori si sovrascrivano tra loro --}}
+                            <input class="form-check-input" type="checkbox" value="{{ $tech->id }}" id="{{ $tech->name }}" name="technology_id[]">
+                            <label class="form-check-label" for="{{ $tech->name }}">
+                                {{ $tech->name }}
+                            </label>
+                        </div>
+                    @endforeach
+                    
+                </div>
                 
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>

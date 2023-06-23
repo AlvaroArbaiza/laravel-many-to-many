@@ -79,12 +79,18 @@ class ProjectController extends Controller
         }
 
         /* l'alternativa shortcut al salvataggio delle informazioni
-            $newProject = Project::create($form_data);
         */
-        $newProject = new Project();
+        $newProject = Project::create($form_data);
+        // $newProject = new Project();
 
-        $newProject->fill($form_data);
-        $newProject->save();
+        // $newProject->fill($form_data);
+        // $newProject->save();
+
+        // Ottieniamo gli ID delle tecnologie selezionate
+        $technologyIds = $request->input('technology_id', []);
+
+        // Collega le tecnologie prese al progetto salvato
+        $newProject->technology()->attach($technologyIds);
 
         return redirect()->route('projects.index')->with('success', 'Creazione del fumetto completata con successo!');
     }
