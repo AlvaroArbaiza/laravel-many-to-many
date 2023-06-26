@@ -88,6 +88,16 @@
                     @enderror
                 </div>
 
+                {{-- video --}}
+                <div class="mb-3">
+                    <label for="project_video" class="form-label">Video</label>
+                    <input type="file" class="form-control @error('video') is-invalid @enderror" id="project_video" name="video">
+                    {{-- error --}}
+                    @error('video')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+
                 {{-- type --}}
                 <div class="mb-3">
                     <label for="project_type" class="form-label">Tipologia</label>
