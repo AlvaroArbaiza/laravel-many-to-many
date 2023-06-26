@@ -105,6 +105,44 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
+
+                {{-- technology --}}
+                <div class="mb-3">
+                    @foreach($technologies as $tech)
+                        <div class="form-check @error('technology_id') is-invalid @enderror">
+
+                            @if( $errors->any())
+
+                                {{-- aggiungiamo "[]" al name per passare tutti i valori inviati come un array, cosi evitiamo che i valori si sovrascrivano tra loro --}}
+                                <input class="form-check-input" 
+                                    type="checkbox" 
+                                    value="{{ $tech->id }}" 
+                                    id="{{ $tech->name }}" 
+                                    name="technology_id[]"
+                                    {{ in_array( $tech->id, old( 'technologies', []) ) ? 'checked' : ''}}
+                                >
+                            @else
+
+                                <input class="form-check-input" 
+                                    type="checkbox" 
+                                    value="{{ $tech->id }}" 
+                                    id="{{ $tech->name }}" 
+                                    name="technology_id[]"
+                                    {{ $project->technology->contains($tech) ? 'checked' : ''}}
+                                >
+                            @endif
+                                <label class="form-check-label" for="{{ $tech->name }}">
+                                    {{ $tech->name }}
+                                </label>
+
+                        </div>
+                    @endforeach  
+                    
+                    {{-- error --}}
+                    @error('technology_id')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
                 
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>

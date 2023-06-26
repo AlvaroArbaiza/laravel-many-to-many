@@ -28,7 +28,7 @@ class ProjectController extends Controller
     public function index()
     {
 
-        // assegniamo alla variabile $projects tutti i dati della tabella projects grazie al metodo statico ( Project::All() )
+        // assegniamo alla variabile $projects tutti i record della tabella projects grazie al metodo statico ( Project::All() )
         $projects = Project::All();
 
         return view('admin.projects.index', compact('projects'));
@@ -87,10 +87,20 @@ class ProjectController extends Controller
         // $newProject->save();
 
         // Ottieniamo gli ID delle tecnologie selezionate
-        $technologyIds = $request->input('technology_id', []);
+        // $technologyIds = $request->input('technology_id', []);
 
         // Collega le tecnologie prese al progetto salvato
-        $newProject->technology()->attach($technologyIds);
+        // $newProject->technology()->attach($technologyIds);
+
+        if($request->has('technology_id')) {
+
+        /* 
+            ->attach($request->technology_id
+            technology_id = nome colonna
+        */
+
+            $newProject->technology()->attach($request->technology_id);
+        }
 
         return redirect()->route('projects.index')->with('success', 'Creazione del fumetto completata con successo!');
     }
@@ -119,8 +129,9 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {        
         $types = Type::all();
+        $technologies = Technology::all();
 
-        return view('admin.projects.edit', compact('project', 'types'));
+        return view('admin.projects.edit', compact('project', 'types', 'technologies'));
     }
 
     /**
@@ -159,8 +170,14 @@ class ProjectController extends Controller
         // associamo a una variabile i dati passati con il form
         $form_data = $request->all();
 
+        
         // aggiorniamo l'elemento passato con il form, usando il metodo update()
         $project->update($form_data);
+
+        if($request->has('technology_id')) {
+
+            $project->technology()->sync($request->technology_id);
+        }
 
         // facciamo un redirect verso la pagina contenente tutti i nostri comic dove possiamo avere una panoramica dei nostri elementi modificati
         return redirect()->route('projects.index');
@@ -174,6 +191,9 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+
+        // Rimuovi le righe nella tabella pivot quandp cancelli l'elemento
+        $project->technology()->detach();
 
         // se l'immagine è presente cancellalo dalla cartella
         if($project->image) {

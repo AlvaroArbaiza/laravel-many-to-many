@@ -31,7 +31,8 @@ class StoreProjectRequest extends FormRequest
             'price' => 'required|max:15',
             'created' => 'required|max:15',
             'image' => 'nullable|image|max:6000',
-            'type_id' => 'nullable|exists:types,id'
+            'type_id' => 'nullable|exists:types,id',
+            'technology_id' => 'nullable|exists:technologies,id'
         ];
     }
 

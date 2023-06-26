@@ -80,21 +80,24 @@
                             </h6>
 
                             <p class="card-text">{{ $element['description'] }}</p>
+                            
+                            <div class="d-flex justify-content-between">
+                                {{-- edit --}}
+                                {{-- passo l'elemento intero come parametro alla funzione di edit --}}
+                                <a href="{{ route('projects.edit', $element ) }}" class="btn btn-info">Modifica</a>
+            
+                                {{-- delete --}}
+                                <form action="{{ route('projects.destroy', $element['id']) }}" method="POST">
+            
+                                    @csrf
+                                    @method('DELETE')
+    
+                                    <button type="submit" class="delete btn btn-danger"
+                                        onclick="return confirm('Sicuro di volere eliminare questo elemento?')"    
+                                    >Cancella</button>
+                                </form>
+                            </div>
 
-                            {{-- edit --}}
-                            {{-- passo l'elemento intero come parametro alla funzione di edit --}}
-                            <a href="{{ route('projects.edit', $element ) }}" class="btn btn-info">Modifica</a>
-        
-                            {{-- delete --}}
-                            <form action="{{ route('projects.destroy', $element['id']) }}" method="POST">
-        
-                                @csrf
-                                @method('DELETE')
-
-                                <button type="submit" class="delete btn btn-danger"
-                                    onclick="return confirm('Sicuro di volere eliminare questo elemento?')"    
-                                >Cancella</button>
-                            </form>
                             
                         </div>
                     </div>
