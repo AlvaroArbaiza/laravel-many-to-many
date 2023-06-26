@@ -94,11 +94,10 @@ class ProjectController extends Controller
 
         if($request->has('technology_id')) {
 
-        /* 
-            ->attach($request->technology_id
-            technology_id = nome colonna
-        */
-
+            /* 
+                ->attach($request->technology_id;
+                technology_id = nome colonna
+            */
             $newProject->technology()->attach($request->technology_id);
         }
 

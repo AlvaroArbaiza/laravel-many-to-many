@@ -119,7 +119,7 @@
                                     value="{{ $tech->id }}" 
                                     id="{{ $tech->name }}" 
                                     name="technology_id[]"
-                                    {{ in_array( $tech->id, old( 'technologies', []) ) ? 'checked' : ''}}
+                                    {{ in_array( $tech->id, old( 'technology_id', []) ) ? 'checked' : ''}}
                                 >
                             @else
 
