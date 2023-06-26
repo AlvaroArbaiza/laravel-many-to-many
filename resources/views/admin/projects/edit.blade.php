@@ -119,6 +119,9 @@
                                     value="{{ $tech->id }}" 
                                     id="{{ $tech->name }}" 
                                     name="technology_id[]"
+
+                                    {{-- questo metodo( in_array() ) controlla se nell'array 'technology_id' è presente l'id di tech '$tech->id'
+                                    La funzione old( 'technology_id', [] ) restituisce un array dei valori precedentemente inseriti per il campo "technology_id". Se non sono stati inseriti valori precedentemente, viene restituito un array vuoto [] --}}
                                     {{ in_array( $tech->id, old( 'technology_id', []) ) ? 'checked' : ''}}
                                 >
                             @else

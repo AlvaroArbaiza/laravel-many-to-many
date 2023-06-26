@@ -165,10 +165,6 @@ class ProjectController extends Controller
             $form_data['image'] = $img_path;
 
         }
-
-        // associamo a una variabile i dati passati con il form
-        $form_data = $request->all();
-
         
         // aggiorniamo l'elemento passato con il form, usando il metodo update()
         $project->update($form_data);
