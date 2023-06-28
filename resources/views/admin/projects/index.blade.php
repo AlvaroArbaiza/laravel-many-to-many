@@ -16,15 +16,20 @@
         {{-- projects - projects --}}
         <div class="row row-gap-5">
 
-            @foreach ($projects as $element)        
+            @foreach ( $projects as $element )        
             
            
                 <div class="col-6">
 
                     {{-- card --}}
                     <div class="card">
-                        
-                        <img src="{{ asset('storage/' . $element->image) }}" class="card-img-top" alt="{{ $element['title'] }}">
+                        @if( $element->video ) 
+                            <video controls>
+                                <source src="{{ asset('storage/' . $element->video) }}" type="video/mp4">
+                            </video>
+                        @else
+                            <img src="{{ asset('storage/' . $element->image) }}" class="card-img-top" alt="{{ $element['title'] }}">
+                        @endif                       
 
                         {{-- card-body --}}
                         <div class="card-body">
@@ -87,7 +92,7 @@
                                 <a href="{{ route('projects.edit', $element ) }}" class="btn btn-info">Modifica</a>
             
                                 {{-- delete --}}
-                                <form action="{{ route('projects.destroy', $element['id']) }}" method="POST">
+                                <form action="{{ route('projects.destroy', $element) }}" method="POST">
             
                                     @csrf
                                     @method('DELETE')

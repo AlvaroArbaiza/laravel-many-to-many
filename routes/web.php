@@ -51,15 +51,13 @@ Route::middleware([ 'auth', 'verified' ])->prefix('admin')->group(function () {
     Route::get( '/', [DashboardController::class, 'index'] )->name('admin.dashboard');
 
     // per far in modo che l'elemento venga passsato alla funzione di controller deve combaciare con il nome della route definita nel file web
-    Route::resources([
-
-        /*   P R O J E C T S  C O N T R O L L E R   */
-        '/projects' => ProjectController::class,
-
-        /*   T Y P E S  C O N T R O L L E R   */
-        '/types' => TypeController::class
+    Route::resource( '/projects', ProjectController::class)->parameters([
+        'projects' => 'project:slug'
     ]);
 
+    Route::resource( '/types', TypeController::class )->parameters([
+        'types' => 'type:slug'
+    ]);
 });
 
 require __DIR__.'/auth.php';

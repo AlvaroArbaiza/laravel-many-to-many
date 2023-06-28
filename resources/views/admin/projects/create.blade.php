@@ -8,6 +8,16 @@
 {{-- Main Content --}}
 @section('content')
 
+@if($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 <div class="container text-white">
     <div class="row justify-content-center my-5">
         <div class="col-9 p-5 border rounded bg-dark">

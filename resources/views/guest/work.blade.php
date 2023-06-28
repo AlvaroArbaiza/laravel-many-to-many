@@ -6,7 +6,7 @@
 
 @section('content')
 
-<div class="container mt-5">
+<div class="container my-5">
 
     {{-- work --}}
     <div class="row row-gap-5">
@@ -24,7 +24,7 @@
                     <div class="card-body">
 
                         {{-- title --}}
-                        <a href="{{ route('guest.show', $element['id'] ) }}" class="mb-2">
+                        <a href="{{ route('guest.show', $element['slug'] ) }}" class="mb-2">
                             <h5 class="card-title fw-bold">
                                 {{ $element['title'] }}
                             </h5>

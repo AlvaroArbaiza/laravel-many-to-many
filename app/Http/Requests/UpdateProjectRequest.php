@@ -35,6 +35,7 @@ class UpdateProjectRequest extends FormRequest
             'price' => 'required|max:15',
             'created' => 'required|date',
             'image' => 'nullable|image|max:6000',
+            'video' => 'mimes:mp4,mov,avi',
             'type_id' => 'nullable|exists:types,id',
             'technology_id' => 'nullable|exists:technologies,id'
         ];

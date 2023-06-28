@@ -22,7 +22,8 @@ class Project extends Model
         'price',
         'created',
         'image',
-        'type_id'
+        'type_id',
+        'video'
     ];
 
     public static function toSlug($title) {

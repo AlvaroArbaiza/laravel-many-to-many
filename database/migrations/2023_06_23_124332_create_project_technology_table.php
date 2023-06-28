@@ -17,7 +17,7 @@ return new class extends Migration
 
             // creazione colonna per gli id della tabella projects
             $table->unsignedBigInteger('project_id');
-            $table->foreign('project_id')->references('id')->on('projects')->cascadeOnDelete();
+            $table->foreign('project_id')->references('id')->on('projects')->cascadeOnDelete(); // cascadeOnDelete() elimina automaticamente i record correlati con il record padre
 
             // creazione colonna per gli id della tabella technologies
             $table->unsignedBigInteger('technology_id');

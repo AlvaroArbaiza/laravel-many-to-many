@@ -46,11 +46,14 @@ class GuestController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
 
         // in questo caso passiamo l'id della tabella
-        $project = Project::findOrFail($id);
+        // $project = Project::findOrFail($slug);
+
+        // In questo caso, stiamo modificando il nome del parametro nel metodo show da $id a $slug. Poi, utilizziamo il metodo where per cercare il progetto con lo slug corrispondente nel database. Se il progetto non viene trovato, viene generata un'eccezione ModelNotFoundException.
+        $project = Project::where('slug', $slug)->firstOrFail();
         return view('guest.show', compact('project'));
     }
 

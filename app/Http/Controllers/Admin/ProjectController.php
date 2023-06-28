@@ -67,36 +67,43 @@ class ProjectController extends Controller
         // assegnazione e creazione del nuovo valore $slug
         $form_data['slug'] = $slug;
 
+        /*    INSERIMENTO IMMAGINI    */
         // se il file immagine è presente
-        if( $request->hasFile('image')) {
+        if( $request->hasFile('image') ) {
 
             // generazione path il quale verrà salvato in post_images
             $img_path = Storage::disk('public')->put('post_images', $request->image);
 
             // assegnazione e creazione del nuovo valore $img_path
             $form_data['image'] = $img_path;
-
         }
+
+        // dd($request->file('video'));
+        /*    INSERIMENTO VIDEO    */
+        // if( $request->hasFile('video') ) {
+
+        //     // assegnazione path del video che verrà salavato nella cartella 'post_videos'
+            // $video_path = Storage::disk('public')->put('post_videos', $request->file('video')->getClientOriginalName());
+            // $form_data['video'] = $video_path;
+
+        //     $path = $request->file('video')->store('post_videos', ['disk' =>'public']);
+        //     $form_data['video'] = $path;
+
+        // } 
 
         /* l'alternativa shortcut al salvataggio delle informazioni
         */
         $newProject = Project::create($form_data);
         // $newProject = new Project();
-
         // $newProject->fill($form_data);
         // $newProject->save();
-
-        // Ottieniamo gli ID delle tecnologie selezionate
-        // $technologyIds = $request->input('technology_id', []);
-
-        // Collega le tecnologie prese al progetto salvato
-        // $newProject->technology()->attach($technologyIds);
-
+        
         if($request->has('technology_id')) {
-
+            
             /* 
                 ->attach($request->technology_id;
                 technology_id = nome colonna
+                --- Collega le tecnologie prese al progetto salvato ---
             */
             $newProject->technology()->attach($request->technology_id);
         }
@@ -151,6 +158,7 @@ class ProjectController extends Controller
         // assegnazione e creazione del nuovo valore $slug
         $form_data['slug'] = $slug;
 
+        /*    INSERIMENTO IMMAGINI    */
         // se il file immagine è presente
         if( $request->hasFile('image')) {
             
@@ -169,13 +177,17 @@ class ProjectController extends Controller
         // aggiorniamo l'elemento passato con il form, usando il metodo update()
         $project->update($form_data);
 
+        // se esistono gli id
         if($request->has('technology_id')) {
-
             $project->technology()->sync($request->technology_id);
+
+        // altrimenti va svuotato
+        } else {
+            $project->technology()->sync([]);
         }
 
         // facciamo un redirect verso la pagina contenente tutti i nostri comic dove possiamo avere una panoramica dei nostri elementi modificati
-        return redirect()->route('projects.index');
+        return redirect()->route('projects.index')->with('success', 'Modifica completata con successo!');
     }
 
     /**
@@ -187,13 +199,18 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
 
-        // Rimuovi le righe nella tabella pivot quandp cancelli l'elemento
-        $project->technology()->detach();
+        /* Rimuovi le righe nella tabella pivot quando cancelli l'elemento, ma avendo già definito nella migration del pivot il metodo 'cascadeOnDelete()' non sarà più necessario */
+        // $project->technology()->detach();
+        // $project->technology()->sync([]);
 
         // se l'immagine è presente cancellalo dalla cartella
         if($project->image) {
             Storage::delete($project->image);
         }
+        // se il video è presente cancellalo dalla cartella
+        // if ($project->video) {
+        //     Storage::disk('public')->delete($project->video);
+        // }
         // cancelliamo l'elemento passato con il metodo destroy
         $project->delete();
 
